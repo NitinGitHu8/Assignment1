@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+public class Solve {
+
+    static int n, m;
+    static long[] songs;
+    static int[] moments;
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+        st = new StringTokenizer(input.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        songs = new long[n];
+
+        int times, duration;
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(input.readLine());
+
+            times = Integer.parseInt(st.nextToken());
+            duration = Integer.parseInt(st.nextToken());
+
+            songs[i] = (long) times * (long) duration;
+
+            if (i != 0)
+                songs[i] += songs[i - 1];
+        }
+        moments = Arrays.stream(input.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        int pnt = 0;
+
+        for (int moment : moments) {
+            if (moment <= songs[pnt])
+                output.write((pnt + 1) + "\n");
+            else {
+                pnt++;
+                while (songs[pnt] < moment)
+                    pnt++;
+                output.write((pnt + 1) + "\n");
+            }
+        }
+        input.close();
+        output.flush();
+    }
+}
