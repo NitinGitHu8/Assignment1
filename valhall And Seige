@@ -1,0 +1,44 @@
+import java.util.Scanner;
+class Main {
+	static StringBuilder sb=new StringBuilder();
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n,q;
+		n=s.nextInt();
+		q=s.nextInt();
+		long warriors[]=new long[n+1];
+		long sum=0;
+		for(int i=n;i>0;i--){
+			sum+=s.nextLong();
+			warriors[i]=sum;
+			
+		}
+		long arrows=0;
+		for(int i=0;i<q;i++){
+			arrows=arrows+s.nextLong();
+			int si=1;
+			int ei=n;
+			int ans=-1;
+			while(si<=ei){
+				int mid=si+(ei-si)/2;
+				if(arrows<warriors[mid]){
+					ans=mid;
+					si=mid+1;
+				}
+				else{
+					ei=mid-1;
+				}
+			}
+			if(ans==-1){
+				sb.append(n).append("\n");
+				arrows=0;
+			}
+			else{
+			sb.append(ans).append("\n");
+			}
+		}
+		System.out.print(sb);
+		
+	}
+}
