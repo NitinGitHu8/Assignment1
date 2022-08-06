@@ -1,0 +1,35 @@
+import java.util.Scanner;
+public class Main {
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		int k=s.nextInt();
+		int arr[]=new int[n+1];
+		int sum=0;
+		for(int i=1;i<=n;i++){
+			arr[i]=s.nextInt();
+			if(i<=k){
+				sum+=arr[i];
+			}
+			
+		}
+		int ind=-1;
+		int res=Integer.MAX_VALUE;
+		if(sum<res){
+			ind=1;
+			res=sum;
+		}
+		for(int i=k+1;i<=n;i++){
+			sum+=arr[i];
+			sum-=arr[i-k];
+			if(sum<res){
+				ind=(i-(k-1));
+			}
+			res=Math.min(res,sum);
+			
+		}
+		System.out.print(ind);
+		
+	}
+}
