@@ -1,0 +1,44 @@
+import java.util.Scanner;
+import java.util.HashSet;
+class Main {
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n;
+		n=s.nextInt();
+		long sum=0;
+		long arr[]=new long[n+1];
+		for(int i=1;i<=n;i++){
+			arr[i]=s.nextInt();
+			sum+=arr[i];
+		}
+		if(sum%2!=0){
+			System.out.print("NO");
+			return ;
+		}
+		HashSet<Long>h=new HashSet<Long>();
+		long pre=0;
+		for(int i=1;i<=n;i++){
+			h.add(arr[i]);
+			pre+=arr[i];
+			if(h.contains(pre-sum/2)){
+				System.out.print("YES");
+				return;
+			}
+			
+		}
+		h.clear();
+		pre=0;
+		for(int i=n;i>0;i--){
+			pre+=arr[i];
+			h.add(arr[i]);
+			if(h.contains(pre-sum/2)){
+				System.out.print("YES");
+				return;
+			}
+		}
+		System.out.print("NO");
+		
+		
+	}
+}
