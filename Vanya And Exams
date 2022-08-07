@@ -1,0 +1,66 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+	static int extractMin(boolean mset[],int essays[],int n){
+		int max=Integer.MAX_VALUE;
+		int min_i=0;
+		for(int i=1;i<n;i++){
+			if(!mset[i]&&essays[i]<max){
+				min_i=i;
+				max=essays[i];
+			}
+		}
+		return min_i;
+	}
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		long r=s.nextLong();
+		int avg=s.nextInt();
+		long grades[]=new long[n+1];
+		int essays[]=new int[n+1];
+		long sum=0;
+		for(int i=1;i<=n;i++){
+			grades[i]=s.nextLong();
+			sum+=grades[i];
+			essays[i]=s.nextInt();
+			
+			
+		}
+		boolean flag=false;
+		boolean mset[]=new boolean[n+1];
+		Arrays.fill(mset,false);
+		//int sum=0;
+		long total=avg*n;
+		if(sum>=total){
+			System.out.print(0);
+			return ;
+		}
+		long points=total-sum;
+		long cnt=0;
+		long res=0;
+		while(true){
+			int ind=extractMin(mset,essays,n+1);
+			mset[ind]=true;	
+				if(points>r-grades[ind]){
+					res+=(r-grades[ind])*essays[ind];
+					points-=r-grades[ind];
+					grades[ind]=r;
+				}
+				if(points<=r-grades[ind]){
+					res+=points*essays[ind];
+					points=0;
+					break;
+				}
+				
+				
+			}
+			
+			
+		
+		System.out.print(res);
+		
+		
+	}
+	}
