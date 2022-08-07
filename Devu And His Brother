@@ -1,0 +1,163 @@
+import java.util.TreeMap;
+import java.util.Scanner;
+import java.util.Map;
+public class Main {
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		int m=s.nextInt();
+		long a[]=new long[n+1];
+		long b[]=new long[m+1];
+		long min=Integer.MAX_VALUE;
+		long max=Integer.MIN_VALUE;
+		TreeMap<Long,Integer>mapA=new TreeMap<Long,Integer>();
+		TreeMap<Long,Integer>mapB=new TreeMap<Long,Integer>();
+		for(int i=1;i<=n;i++){
+			/*a[i]=s.nextInt();
+			if(a[i]<min){
+				min=arr[i];
+			}*/
+			long elem=s.nextLong();
+			if(elem<min){
+				min=elem;
+			}
+			mapA.put(elem,mapA.getOrDefault(elem,0)+1);
+		}
+		for(int i=1;i<=m;i++){
+			/*b[i]=s.nextInt();
+			if(a[i]>max){
+				max=a[i];
+			}*/
+			Long elem=s.nextLong();
+			if(elem>max){
+				max=elem;
+				
+			}
+			mapB.put(elem,mapB.getOrDefault(elem,0)+1);
+		}
+		int index=1;
+		for(Map.Entry<Long,Integer>map:mapA.entrySet()){
+			for(int j=0;j<map.getValue();j++){
+			a[index++]=map.getKey();
+			}
+		}
+		index=1;
+		for(Map.Entry<Long,Integer>map:mapB.entrySet()){
+			for(int j=0;j<map.getValue();j++){
+			b[index++]=map.getKey();
+			}
+		}
+		long diff=max-min;
+		//System.out.println(diff);
+		if(diff<=0){
+			System.out.print(0);
+			return ;
+		}
+		else if(n==1||m==1){
+			if(n==1)
+				System.out.print(diff*mapA.get(a[1]));
+			if(m==1){
+				System.out.print(diff*mapB.get(b[1]));
+			}
+			return ;
+		}
+		//System.out.println("reached");
+		int indA=1;
+		int res=0;
+		int resA=0;
+		int resB=0;
+		//System.out.print(a[indA+1]);
+		long diffA=a[indA+1]-a[indA];
+		//System.out.println("diffA"+diffA);
+		if(diffA<diff){
+			res+=diffA*mapA.get(a[indA]);
+			resA=res;
+			diff-=diffA;
+			
+			
+			
+		}
+		else{
+			
+			System.out.print(diff*mapA.get(indA));
+			return;
+		}
+		//System.out.println("reached");
+		int indB=m;
+		long diffB=b[indB]-b[indB-1];
+		//System.out.print(b[]);
+	//	System.out.print(mapB.get(b[m]));
+		//System.out.println(b[indB]);
+		//System.out.println(b[indB-1]);
+		//System.out.print("diffB"+diffB);
+		//System.out.println("diffB"+diffB);
+		
+	
+		if(diffB<diff){
+			res+=diffB*mapB.get(b[indB]);
+			resB=res;
+			diff-=diffB;
+		}
+		else{
+			System.out.print(res+diff*mapB.get(b[indB]));
+			return;
+			
+			
+		}
+		//System.out.println("reached");
+		//System.out.println(diff);
+		//int resA=0;
+		long diffCopyA=diff;
+		//System.out.println(diff);
+		while(diffCopyA>0&&indA+1<n+1){
+			indA++;
+			if(indA+1<n+1){
+				diffA=a[indA+1]=a[indA];
+				if(diffA<diffCopyA){
+					resA+=diffA*mapA.get(a[indA]);
+				
+					diffCopyA-=diffA;
+				}
+				
+			}
+			else{
+				resA+=diffCopyA*mapA.get(a[indA]);
+				break;
+				
+			}
+			
+	
+		}
+		long diffCopyB=diff;
+		//int resB=0;
+		while(diffCopyB>0&&indB-1>0){
+			indB--;
+			if(indB-1>0){
+				diffB=b[indB]-b[indB-1];
+				if(diffB<diffCopyB){
+					resB+=diffB*mapB.get(b[indB]);
+					diffCopyB-=diffB;
+				}
+				
+				
+			}
+			else{
+				resB+=diffCopyB*mapB.get(b[indB]);
+				break;
+			}
+		}
+		int resAB=Math.min(resA,resB);
+		//System.out.println(res);
+		//System.out.println(resA);
+		//System.out.println(resB);
+		res+=resAB;
+		//System.out.print("YEs");
+		System.out.println(res);
+		
+		
+		
+		
+		
+	}
+}
