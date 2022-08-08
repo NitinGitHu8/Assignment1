@@ -1,0 +1,60 @@
+//https://codeforces.com/contest/1332/problem/B
+
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
+public class Main {
+	static StringBuilder sb=new StringBuilder();
+	static int gcd(int x,int y){
+		int ans=1;
+		for(int i=1;i<=40;i++){
+			if(x%i==0&&y%i==0){
+				ans=i;
+			}
+		}
+		return ans;
+	}
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int t=s.nextInt();
+		int m=11;
+		while(t-- >0){
+			int n=s.nextInt();
+			int color=0;
+			int colorsUsed=1;
+			TreeMap<Integer,Integer>map=new TreeMap<Integer,Integer>();
+			for(int i=1;i<=n;i++){
+				int elem=s.nextInt();
+				if(gcd(map.getOrDefault(color,1),elem)>1){
+					//System.out.print(color+" ");
+					sb.append(color).append(" ");
+				}
+				else{
+					
+					
+					color=(color+1)%(m+1);
+					if(color==0){
+						color=1;
+					}
+					
+					colorsUsed=Math.max(color,colorsUsed);
+					//System.out.print(color+" ");
+					sb.append(color).append(" ");
+					map.put(color,elem);
+				}
+				
+				
+				
+				
+			}
+			System.out.println(colorsUsed);
+			System.out.println(sb);
+			color=0;
+			sb.delete(0,sb.length());
+			colorsUsed=1;
+			map.clear();
+		}
+		
+	}
+}
