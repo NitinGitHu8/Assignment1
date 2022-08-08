@@ -1,0 +1,53 @@
+
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
+public class Main {
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		long one[]=new long[n+2];
+		long two[]=new long[n+2];
+		
+		TreeMap<Long,Integer>m=new TreeMap<Long,Integer>();
+		for(int i=1;i<=n;i++){
+			long elem=s.nextLong();
+			one[i]=elem;
+			m.put(elem,m.getOrDefault(elem,0)+1);
+			
+		}
+		int index=1;
+		for(Map.Entry<Long,Integer>map:m.entrySet()){
+			for(int j=0;j<map.getValue();j++){
+				two[index++]=map.getKey();
+			}
+		}
+    //--------Finding Prefix Sum-------------------//
+    
+		for(int i=1;i<=n;i++){
+			one[i]=one[i]+one[i-1];
+			two[i]=two[i]+two[i-1];
+		}
+		int q=s.nextInt();
+    //---------------Responding to the queries------------------//
+		for(int i=1;i<=q;i++){
+			if(s.nextInt()==1){
+				int l=s.nextInt();
+				int r=s.nextInt();
+				long res=(one[r]-one[l-1]);	
+				System.out.println(res);	
+			}
+			else{
+				int l=s.nextInt();
+				int r=s.nextInt();
+				long res=two[r]-two[l-1];
+				System.out.println(res);
+			}
+		}
+		
+		
+		
+		
+	}
+}
