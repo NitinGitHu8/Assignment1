@@ -1,0 +1,33 @@
+import java.util.Scanner;
+public class Main {
+	public static void main(String args[]) {
+		// Your code goes here
+		int l=2;
+		int r=5000000;
+		int noOfPrimeDivisors[]=new int[r+2];
+		int greatestPrimeDivisor[]=new int[r+2];
+		int primeDivisorsTillN[]=new int[r+2];
+		for(int i=l;i<=r;i++){
+			if(greatestPrimeDivisor[i]==0){
+			for(int multiple=i;multiple<=r;multiple+=i){
+				greatestPrimeDivisor[multiple]=i;
+			}
+			}
+			int p=greatestPrimeDivisor[i];
+			noOfPrimeDivisors[i]=1+noOfPrimeDivisors[i/p];
+			primeDivisorsTillN[i]=noOfPrimeDivisors[i]+primeDivisorsTillN[i-1];
+		}
+		Scanner s=new Scanner(System.in);
+		int t=s.nextInt();
+		while(t-- > 0){
+		
+			int a=s.nextInt();
+			int b=s.nextInt();
+			System.out.println(primeDivisorsTillN[a]-primeDivisorsTillN[b]);
+		
+		}
+		/*
+		*/
+		
+	}
+}
