@@ -1,0 +1,70 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main{
+	static int primes[]=new int[10000100];
+	static long factorial(long n){
+		long m=n-1;
+		while(m>=1){
+			n*=m;
+			m--;
+			
+		}
+		return n;
+	}
+	
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		//System.out.print(factorial(4));
+		int t=s.nextInt();
+		while(t-- >0){
+			long a=s.nextLong();
+			long b=s.nextLong();
+			//long factA=factorial(a);
+			//long factB=factorial(b);
+			System.out.println(factA);
+			System.out.println(factB+"\n");
+			/*long n=factA/factB;
+			
+			long rounds=0;
+			//while(n!=1){
+			//long res=binarySearch(n);
+			
+			for(int i=3;i*i<n;i=i+2){
+				if(primes[i]==0){
+					for(int j=i*i;j<=n;j++){
+						primes[j]=1;
+					}
+				}
+			}
+			ArrayList<Integer>a1=new ArrayList<Integer>();
+			a1.add(2);
+			for(int i=3;i<=n;i=i+2){
+				if(primes[i]==0){
+					a1.add(i);
+				}
+				}
+			
+			//}
+			while(n!=1){
+				for(int i=0;i<a1.size();i++){
+					if(a1.get(i)>0&&n%a1.get(i)==0){
+						rounds+=1;
+						n=n/a1.get(i);
+						break;
+					}
+				}
+			}
+			System.out.println(rounds);
+			
+			//Answer obj=new Answer(0);
+			//long res=binarySearch(n,obj);
+			//System.out.println(res);*/
+			
+		}
+			
+			
+		
+	}
+}
