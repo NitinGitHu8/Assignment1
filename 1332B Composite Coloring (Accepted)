@@ -1,0 +1,75 @@
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
+import java.util.ArrayList;
+class Main {
+	static int primes[]=new int[1000100];
+	public static void main(String args[]) {
+		// Your code goes here
+    
+    //-------Finding first 11 primes that  will be used to color the elements------------//
+    
+		int num=31;
+		for(int i=3;i*i<num;i=i+2){
+			if(primes[i]==0){
+				for(int j=i*i;j<=num;j=j+i){
+					primes[j]=1;
+				}
+			}
+		}
+		ArrayList<Integer>a1=new ArrayList<Integer>();
+		a1.add(2);
+		for(int i=3;i<=num;i=i+2){
+			if(primes[i]==0){
+				a1.add(i);
+			}
+		}
+		//System.out.print(a1);
+		Scanner s=new Scanner(System.in);
+		int t=s.nextInt();
+		while(t-- > 0){
+		int n=s.nextInt();
+		int arr[]=new int[n];
+		for(int i=0;i<n;i++){
+			arr[i]=s.nextInt();
+		}
+    //----------Mapping the elements to the prime number by which they are divisible-----------------//
+    
+		TreeMap<Integer,Integer>m1=new TreeMap<Integer,Integer>();
+		for(int i=0;i<n;i++){
+			for(int j=0;j<a1.size();j++){
+				if(arr[i]%a1.get(j)==0){
+					m1.put(arr[i],a1.get(j));
+				}
+			}
+		}
+    //------------Checking how many colors are required--------------------------------------//
+    //------------how many primes numbers out of 11 are acting as remianders----------------//
+    
+		TreeMap<Integer,Integer>m2=new TreeMap<Integer,Integer>();
+		ArrayList<Integer>a2=new ArrayList<Integer>();
+		for(int i=0;i<n;i++){
+			if(m2.getOrDefault(m1.get(arr[i]),0)==0){
+				m2.put(m1.get(arr[i]),1);
+				a2.add(m1.get(arr[i]));
+			}
+			
+			
+		}
+		int sum=0;
+    //-----------Matching the prime number with a color---------------//
+    //-----------Finding the numbers of colors used----------------//
+		TreeMap<Integer,Integer>m3=new TreeMap<Integer,Integer>();
+		for(int i=0;i<a2.size();i++){
+			m3.put(a2.get(i),i+1);
+			sum=i+1;
+			
+		}
+		System.out.println(sum);
+		for(int i=0;i<n;i++){
+			System.out.print(m3.get(m1.get(arr[i]))+" ");
+		}
+		System.out.println();
+		}
+	}
+}
