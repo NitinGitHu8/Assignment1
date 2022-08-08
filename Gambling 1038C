@@ -1,0 +1,61 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class Main {
+	static int size1=1000100;
+	static int size2=1000100;
+	static int count1[]=new int[size1];
+	static int count2[]=new int[size2];
+	
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		for(int i=1;i<=n;i++){
+			int elem=s.nextInt();
+			count1[elem]++;
+		}
+		for(int i=1;i<=n;i++){
+			count2[s.nextInt()]++;
+		}
+		ArrayList<Integer>a=new ArrayList<Integer>();
+		ArrayList<Integer>b=new ArrayList<Integer>();
+		for(int i=size1-1;i>=0;i--){
+			if(count1[i]>0){
+				for(int j=0;j<count1[i];j++){
+					a.add(i);
+				}
+			}
+		}		
+		for(int i=size2-1;i>=0;i--){
+			if(count2[i]>0){
+				for(int j=0;j<count2[i];j++){
+				b.add(i);
+				}
+			}
+		}
+		a.add(0);
+		b.add(0);
+		long sumA=0;
+		long sumB=0;
+		int i=0;
+		int j=0;
+		for(int k=0;k<n;k++){
+			if(a.get(i)>=b.get(j)){
+				sumA+=a.get(i);
+				i++;
+			}
+			else{
+				j++;
+			}
+			if(b.get(j)>=a.get(i)){
+				sumB+=b.get(j);
+				j++;
+			}
+			else{
+				i++;
+			}
+		}
+		System.out.print(sumA-sumB);
+		
+	}
+}
