@@ -1,0 +1,76 @@
+//https://codeforces.com/problemset/problem/732/D
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+	static boolean isPossible(int n,int m,int days[],int exams[],int mid){
+		int requiredDays=0;
+		for(int i=1;i<=m;i++){
+			requiredDays+=exams[i];
+		}
+		if(mid<=requiredDays){
+			return false;
+		}
+		int examsDays[]=new int[mid+1];
+		Arrays.fill(examsDays,-1);
+		boolean visited[]=new boolean[m+1];
+		for(int i=mid;i>=1;i--){
+			if(days[i]==0){
+				continue;
+			}
+			else{
+				if(examsDays[i]==-1&&visited[days[i]]==false){
+					examsDays[i]=days[i];
+					visited[days[i]]=true;
+				}
+			}
+		}
+		int prepDays=0;
+		for(int i=1;i<=mid;i++){
+			if(examsDays[i]==-1){
+				prepDays++;
+			}
+			else{
+				if((prepDays-examsDays[i])<0){
+					return false;
+				}
+				else{
+					prepDays-=examsDays[i];
+				}
+			}
+		}
+		return true;
+	}
+	static int binarySearch(int n,int m,int days[],int exams[]){
+		int si=1;
+		int ei=n;
+		int ans=-1;
+		while(si<=ei){
+			int mid=si+(ei-si)/2;
+			if(isPossible(n,m,days,exams,mid)){
+				ans=mid;
+				ei=mid-1;
+			}
+			else{
+				si=mid+1;
+			}
+		}
+		return ans;
+	}
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n,m;
+		n=s.nextInt();
+		m=s.nextInt();
+		int days[]=new int[n+1];
+		int exams[]=new int[m+1];
+		for(int i=1;i<=n;i++){
+			days[i]=s.nextInt();
+		}
+		for(int i=1;i<=m;i++){
+			exams[i]=s.nextInt();
+		}
+		int res=binarySearch(n,m,days,exams);
+		System.out.print(res);
+	}
+}
