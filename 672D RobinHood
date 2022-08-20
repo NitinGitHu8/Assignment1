@@ -1,0 +1,77 @@
+//https://codeforces.com/contest/672/problem/D
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+	static void binarySearch(int n,long k,long arr[],long sum){
+		long avg=sum/n;
+		long l1=arr[0], r1=avg, poorest=arr[0];
+		//int required
+		while(l1<=r1){
+			long mid1=l1+(r1-l1)/2;
+			long requiredDays=0;
+			for(int i=0;i<n;i++){
+				if(arr[i]<=mid1){
+					break;
+				}
+				requiredDays+=arr[i]-mid1;
+			}
+			if(requiredDays>k){
+				r1=mid1-1;
+			}
+			else{
+				poorest=mid1;
+				l1=mid1+1;
+			}
+		}
+		long maxRich=sum/n;
+		if(sum%n!=0){
+			maxRich++;
+			
+		}
+		long richest=arr[n-1];
+		long l2=maxRich,r2=arr[n-1];
+		while(l2<=r2){
+			long mid2=l2+(r2-l2)/2;
+			long requiredDays=0;
+			for(int i=n-1;i>=0;i--){
+				if(arr[i]<=mid2){
+					break;
+				}
+				else{
+					requiredDays+=arr[i]-mid2;
+				}
+				
+				
+			}
+			if(requiredDays>k){
+				l2=mid2+1;
+			}
+			else{
+				richest=mid2;
+				r2=mid2-1;
+			}
+		}
+		//System.out.println(richest);
+		//System.out.println(poorest);
+		System.out.print(richest-poorest);
+		
+	}
+	
+	public static void main(String args[]) {
+		// Your code goes here
+		Scanner s=new Scanner(System.in);
+		int n;
+		long k;
+		n=s.nextInt();
+		k=s.nextLong();
+		long arr[]=new long[n];
+		long sum=0;
+		for(int i=0;i<n;i++){
+			arr[i]=s.nextLong();
+			sum+=arr[i];
+		}
+		Arrays.sort(arr);
+		binarySearch(n,k,arr,sum);
+		
+	}
+}
